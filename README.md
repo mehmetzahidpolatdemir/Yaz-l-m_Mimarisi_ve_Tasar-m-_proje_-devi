@@ -122,9 +122,9 @@ public class Main {
 ```
 son olarak main metodumuzda sınıfları oluşturuyoruz createComputer metoduna Class type geçtiğimize dikkat edin, bu kısmı farklı örneklerde farklı varyasyonlar görebilirsiniz.
 Özetleyecek olursak bir sınıf oluşturur iken arada bir interface kullanarak kullanacağınız sınıfları kümeleyebilirsiniz, bununla birlikte araya bir factory (fabrika) sınıfı ekleyerek kodunuzu daha soyut bir biçimde daha anlaşılabilir bir biçimde yazabilirsiniz.
-# Structural  Tasarım deseni
+# Structural  Tasarım Deseni
 
-## Bridge(Köprü) Yapısal tasarım deseni
+## Bridge(Köprü) Yapısal Tasarım Deseni
 
 Bridge (Köprü) tasarım deseni, yapısal tasarım desenlerinden birisidir. Soyutladığımız nesneler ile işi gerçekleyecek somut nesneler arasında köprü kurar. Soyut sınıflar ve işi yapacak sınıfları birbirinden ayırdığı için iki sınıf tipinde yapılcak bir değişiklik birbirini etkilemez. Hangi sınıfın kullanılacağına çalışma zamanında karar verilir. Bu mekanizma sayesinde çalışma alanında, gerçek işi yapan sınıf değiştirilebilir.
 ![Image of Class](https://github.com/mehmetzahidpolatdemir/Yaz-l-m_Mimarisi_ve_Tasar-m-_proje_-devi/blob/master/Bridge_Tasar%C4%B1m.jpg?raw=true)
