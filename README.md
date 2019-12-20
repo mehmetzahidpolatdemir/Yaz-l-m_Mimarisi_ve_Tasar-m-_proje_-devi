@@ -7,6 +7,7 @@ Yazılım Mimarisi ve Tasarımı Dersi
 ## Fabrika Metod(Factory Method) Tasarım Deseni
 Factory (Fabrika) tasarım deseni, istemci tarafından verilen bilgilere göre nesne oluşumunu soyutlayarak merkezi bir yerden kontrol etmemizi sağlar. Sınıflar, arayüz üzerinden türetilir. Böylece, istemci ile işi yapacak olan nesne birbirinden ayrılarak gevşek bağlılık sağlanmış olur. Oluşturulacak nesnelerden birbirine benzer olanlar aynı arayüzden türetilerek gruplanır. Fabrika deseni, aynı zamanda sistemimizde tanımladığımız soyut sınıflardan örnekler oluşturmamızı sağlar. Fabrika deseni, Java’da en çok kullanılan desenlerden birisidir.
 ![Image of Class](https://github.com/mehmetzahidpolatdemir/Yaz-l-m_Mimarisi_ve_Tasar-m-_proje_-devi/blob/master/Factory%20Method.jpg?raw=true)
+
 Farklı bir şekilde anlatmak istersek --->
 
 Fabrika metod tasarım deseni Nedir?
@@ -229,8 +230,10 @@ class Program
         Console.ReadKey();
     }
 }
+
 ```
-#Uzun lafın kısası Bridge :
+
+# Kısaca Şöyle Diyebiliriz --->
 Bridge Design Pattern diyor ki; soyutlaşmış (abstract) bir yapıyı, implementasyondan ayır. Böylece bağımsız olarak geliştirilebilir iki yapı elde edersin.
 
 Gelin bu cümleyi yukarıdaki model üzerinde düşünerek iyice bir anlayalım. İmplementasyondan kastettiği en sonda elde edeceğiniz sınıf olacaktır. Diyelim ki bu sınıf, DesktopSalesReport isimli sınıf olsun. Gelelim soyutlaşmış yapıyı belirleme kısmına… Hemen şunu sorarak zihnimizi berraklaştıralım; yukarıdaki modelde WebEmpPerformanceReport ile DesktopSalesReport sınıfları ortak bir atadan türediklerine göre birbirleriyle akrabalar öyle değil mi? Bakın tam bu noktadaki kırılmayı görebiliyor musunuz? Belirttiğim iki sınıf geliştirilebilir bir modelde olabilmesi için akraba olmamalılar. Nitekim Web formatında oluşturulmuş çalışan performans raporu başka bir şey, masaüstü formatında oluşturulmuş satış raporu ise bambaşka.
