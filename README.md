@@ -41,7 +41,10 @@ Test sınıfı
 2. java.util.ResourceBundle#getBundle()
 3. java.text.NumberFormat#getInstance()
 4. java.nio.charset.Charset#forName()
------ Şimdi kod ile anlatım yapalım-------
+
+
+----- Şimdi kod ile anlatım yapalım-----
+
 
 ```java
 public interface Computer {
@@ -118,3 +121,118 @@ public class Main {
 ```
 son olarak main metodumuzda sınıfları oluşturuyoruz createComputer metoduna Class type geçtiğimize dikkat edin, bu kısmı farklı örneklerde farklı varyasyonlar görebilirsiniz.
 Özetleyecek olursak bir sınıf oluşturur iken arada bir interface kullanarak kullanacağınız sınıfları kümeleyebilirsiniz, bununla birlikte araya bir factory (fabrika) sınıfı ekleyerek kodunuzu daha soyut bir biçimde daha anlaşılabilir bir biçimde yazabilirsiniz.
+##Structural  Tasarım deseni
+
+#Bridge(Köprü) Yapısal tasarım deseni
+
+Bridge (Köprü) tasarım deseni, yapısal tasarım desenlerinden birisidir. Soyutladığımız nesneler ile işi gerçekleyecek somut nesneler arasında köprü kurar. Soyut sınıflar ve işi yapacak sınıfları birbirinden ayırdığı için iki sınıf tipinde yapılcak bir değişiklik birbirini etkilemez. Hangi sınıfın kullanılacağına çalışma zamanında karar verilir. Bu mekanizma sayesinde çalışma alanında, gerçek işi yapan sınıf değiştirilebilir.
+![Image of Class](https://github.com/mehmetzahidpolatdemir/Yaz-l-m_Mimarisi_ve_Tasar-m-_proje_-devi/blob/master/Bridge_Tasar%C4%B1m.jpg?raw=true)
+
+Görüldüğü gibi temel olarak 5 yapı bulunmaktadır.
+
+Implemantor arayüzü ile operasyonlar tanımlanır ve ConcreteImplemantor lar bu arayüzden türeyerek operasyonları gerçekleştirir. Abstraction abstract sınıfı ise içinde Implemantor arayüzünden referans barındırarak Implemantor daki operasyonları çalıştırır. RefinedAbstraction ise Abstraction u uygulayan gerçek sınıf veya senaryoya göre sınıflardır. Client ise Abstraction ve Implemantor türlerinden nesneleri üreterek yapıyı kullanır.
+
+Bridge tasarım deseni ile ilgili basit bir örnek uygulama geliştirelim bunu yapmamızın nedeni size uygulama üzerinde anlatarak kavramınızı kolaylaştırmak . Uygulamamızda veri tabanı yapısını ele alalım. Uygulamamız birden fazla veri tabanı desteği veriyor olsun ve execute, connection açma gibi operasyonlar her veri tabanı için farklı olsun. Uygulamamızın class diyagramı aşağıdadır.
+
+![Image of Class](https://github.com/mehmetzahidpolatdemir/Yaz-l-m_Mimarisi_ve_Tasar-m-_proje_-devi/blob/master/BridgeClassDiagram.png?raw=true)
+
+Uygulamamızın kodları aşağıdadır.
+//Implementor
+abstract class DbImplementor
+```java
+abstract class DbImplementor
+{
+    public abstract void Execute(string Sql);
+    public abstract void OpenCon(string SqlCon);
+}
+```
+//ConcreteImplementor
+```java
+class SqlServerImplementor : DbImplementor
+{
+    public override void Execute(string Sql)
+    {
+        Console.WriteLine("\"{0}\" - SqlServer işletildi.", Sql);
+    }
+    public override void OpenCon(string SqlCon)
+    {
+        Console.WriteLine("\"{0}\" - Sql Server Con. Açıldı.", SqlCon);
+    }
+}
+  
+```
+//ConcreteImplementor
+```java
+class OracleImplementor : DbImplementor
+{
+    public override void Execute(string Sql)
+    {
+        Console.WriteLine("\"{0}\" - oracle işletildi.", Sql);
+    }
+    public override void OpenCon(string SqlCon)
+    {
+        Console.WriteLine("\"{0}\" - oracle Con. Açıldı.", SqlCon);
+    }
+}
+```
+//Abstraction
+```java
+abstract class DbAbstraction
+{
+    protected DbImplementor implementor;
+    public DbAbstraction(DbImplementor imp)
+    {
+        Implementor = imp;
+    }
+```
+// Property
+```java
+public DbImplementor Implementor
+    {
+        set { implementor = value; }
+    }
+    public abstract void Exec(string Sql);
+    public abstract void ConOpen(string ConStr);
+}
+```
+//RefinedAbstraction
+```java
+class DbRefinedAbstraction : DbAbstraction
+{
+    public DbRefinedAbstraction(DbImplementor imp)
+        : base(imp)
+    {
+    }
+    public override void Exec(string Sql)
+    {
+        implementor.Execute(Sql);
+    }
+    public override void ConOpen(string ConStr)
+    {
+        implementor.OpenCon(ConStr);
+    }
+}
+```
+//client
+```java
+class Program
+{
+    static void Main(string[] args)
+    {
+        DbAbstraction absDb = new DbRefinedAbstraction(new SqlServerImplementor());
+        absDb.ConOpen("e-ticaret db");
+        absDb.Exec("select * from Urun");
+        absDb = new DbRefinedAbstraction(new OracleImplementor());
+        absDb.ConOpen("e-ticaret db");
+        absDb.Exec("select * from Urun");
+
+        Console.ReadKey();
+    }
+}
+```
+#Uzun lafın kısası Bridge :
+Bridge Design Pattern diyor ki; soyutlaşmış (abstract) bir yapıyı, implementasyondan ayır. Böylece bağımsız olarak geliştirilebilir iki yapı elde edersin.
+
+Gelin bu cümleyi yukarıdaki model üzerinde düşünerek iyice bir anlayalım. İmplementasyondan kastettiği en sonda elde edeceğiniz sınıf olacaktır. Diyelim ki bu sınıf, DesktopSalesReport isimli sınıf olsun. Gelelim soyutlaşmış yapıyı belirleme kısmına… Hemen şunu sorarak zihnimizi berraklaştıralım; yukarıdaki modelde WebEmpPerformanceReport ile DesktopSalesReport sınıfları ortak bir atadan türediklerine göre birbirleriyle akrabalar öyle değil mi? Bakın tam bu noktadaki kırılmayı görebiliyor musunuz? Belirttiğim iki sınıf geliştirilebilir bir modelde olabilmesi için akraba olmamalılar. Nitekim Web formatında oluşturulmuş çalışan performans raporu başka bir şey, masaüstü formatında oluşturulmuş satış raporu ise bambaşka.
+
+O zaman şöyle bir tanım yapabilir miyiz? Bu iki sınıf da farklı iki formatta bir rapordur. O halde bakın ne açığa çıktı! Rapor Formatı, bu modelde soyutlaşmış bir yapıdır. Yani, satış ya da çalışan performans raporunu oluştururken, hangi formatta (Masaüstü veya web) kaydetmesi gerektiğini söylemem yeterli olacak. Bu durumu ayarlamak için IReportFormat isminde bir interface oluşturuyorum ve ilgili formatları bu interface’den implemente ediyorum:
