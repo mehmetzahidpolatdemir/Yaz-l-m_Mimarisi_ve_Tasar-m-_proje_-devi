@@ -10,33 +10,33 @@ Factory (Fabrika) tasarım deseni, istemci tarafından verilen bilgilere göre n
 
 Farklı bir şekilde anlatmak istersek --->
 
-Fabrika metod tasarım deseni Nedir?
+## Fabrika metod tasarım deseni Nedir?
 
 Fabrika metod tasarım deseni, creational tasarım desenlerinden biridir. Bu tasarım deseni bir nesne yaratmak için arayüz sağlar, fakat hangi sınıftan nesne yaratılacağını, alt sınıfların belirlemesine olanak tanır.
 
-Ne zaman Kullanılır?
+## Ne zaman Kullanılır?
 
 Super sınıf ve alt sınıfların olduğu bir uygulamada, alt sınıfların yaratılma işlemini client yani istemci sınıfında yapılmasını engellemek için kullanılır.
 
-Nasıl Kullanılır?
+## Nasıl Kullanılır?
 
 Üst sınıfta implement edilmemiş bir metod bulunacak. Bu metod alt sınıflar tarafından implement edilecek. Alt sınıfın yaratılacak nesneyi belirleme işlemi, implement edilmemiş bu metod sayesinde gerçekleştirilecektir.
 
 Not: Üst sınıfta implement edilmemiş bir metod bulunacağı için bu sınıfın türü ya abstract tanımlanmalı ya da interface olmalıdır.
 
-Faydaları Nedir?
+## Faydaları Nedir?
 
 1. Birbirine daha az bağımlı(loosely coupled) sınıflar oluşturmaya imkan tanıdığı ve Factory sınıfı ve onun alt sınıflarına nesne yaratma işlemi taşındığı için daha az karmaşık kod yazılır. Böyle bir kodun bakımı ise daha kolay olacaktır.
 2. İstemci (Client) kod, sadece Product interface ile ilgilenir ve bu sayede somut(concrete) Product'lar, client kodu değiştirmeden rahatça eklenebilir.
 
-Gerekenler
+## Gerekenler
 
 Türü abstract veya interface olan bir süper(base) fabrika sınıfı
 En az bir tane alt fabrika sınıfı
 En az bir tane Product(ürün) sınıfı
 Test sınıfı
 
-Örnek Kullanım Alanları
+## Örnek Kullanım Alanları
 
 1. java.util.Calendar#getInstance()
 2. java.util.ResourceBundle#getBundle()
@@ -44,7 +44,7 @@ Test sınıfı
 4. java.nio.charset.Charset#forName()
 
 
------ Şimdi kod ile anlatım yapalım-----
+### ----- Şimdi kod ile anlatım yapalım-----
 
 
 ```java
