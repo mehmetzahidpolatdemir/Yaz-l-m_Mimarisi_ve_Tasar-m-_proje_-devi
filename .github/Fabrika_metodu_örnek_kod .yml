@@ -1,0 +1,185 @@
+//Mehmet zahid polatdemir  - 1170505027
+//Base(Süper) Fabrika Sınıfı
+
+public abstract class AnimalStore {
+    protected Animal printProperties(String type) {
+        Animal animal = createAnimal(type);
+        String properties=type+" weight: "+animal.getWeight()+" height: "+animal.getHeight()+" age: "+animal.getAge();
+        System.out.println(properties);
+     return animal;
+    }
+           
+    protected abstract Animal createAnimal(String type);
+           
+}
+//Dikkat edersek createAnimal() isimli bir metod, parametreye göre Animal türünden nesne üretecektir. Ayrıca abstract tanımlandığı için bu metodu alt sınıflar kendine göre implement etmeleri gerekmektedir. Bu metod abstract tanımlanmak zorunda değildir. Fakat normal kullanımı bu şekildedir.
+
+
+//Alt Fabrika Sınıfları
+
+/**
+ * BirdStore isimli alt fabrika sinifi
+ */
+public class BirdStore extends AnimalStore {
+    @Override
+    protected Animal createAnimal(String type) {
+        if("Eagle".equalsIgnoreCase(type)){
+            return new Eagle();
+        }else if("Hawk".equalsIgnoreCase(type)){
+            return new Hawk();
+        }else{
+            throw new IllegalArgumentException();
+        }
+    }
+}
+
+/**
+ * MammalStore isimli alt fabrika sinifi
+ */
+public class MammalStore extends AnimalStore {
+    @Override
+    public Animal createAnimal(String type) {
+        if("Cow".equalsIgnoreCase(type)){
+            return new Cow();
+        }else if("Hourse".equalsIgnoreCase(type)){
+            return new Hourse();
+        }else{
+            throw new IllegalArgumentException();
+        }
+    }
+}
+//BirdStore ve MammalStore isimli iki tane alt sınıf yazıldı. Bu sınıflar AnimalStore isimli süper fabrika sınıfında bulunan createAnimal() metodunu kendileri implement etmektedir. Bu implementasyonun nasıl yapıldığından, üst sınıfın ve client sınıfın haberi olmamaktadır.
+
+//Abstract tanımlanmış Product Süper Sınıfı
+
+/**
+ * Animal isimli abstract tanimlanmis Product sinifi
+ */
+public abstract class Animal {
+    private int age;
+    private int weight;
+    private int height;
+           
+    public int getAge() {
+        return age;
+    }
+           
+    public int getWeight() {
+        return weight;
+    }
+           
+    public int getHeight() {
+        return height;
+    }
+}
+//Eğer bu sınıf interface olarak tanımlanmış olsa idi, her metodu alt sınıflar tekrar tekrar implement etmek zorunda kalacaklardı
+
+/**
+ * İnek sinifi 
+ Alt Product Sınıfları(Mammal Grubuna Ait Olanlar)
+
+ */
+public class Cow extends Animal {
+    @Override
+    public int getAge() {
+        return 4;
+    }
+           
+    @Override
+    public int getHeight() {
+        return 100;
+    }
+           
+    @Override
+    public int getWeight() {
+        return 300;
+    }
+}
+
+/**
+ * At sinifi
+ */
+public class Hourse extends Animal {
+    @Override
+    public int getAge() {
+        return 6;
+    }
+           
+    @Override
+    public int getHeight() {
+        return 160;
+    }
+           
+    @Override
+    public int getWeight() {
+        return 400;
+    }
+}
+
+//Alt Product Sınıfları(Bird Grubuna Ait Olanlar)
+/**
+ * Kartal sinifi
+ */
+public class Eagle extends Animal {
+    @Override
+    public int getAge() {
+        return 50;
+    }
+           
+    @Override
+    public int getHeight() {
+        return 100;
+    }
+           
+    @Override
+    public int getWeight() {
+        return 5;
+    }
+}
+
+/**
+ * Sahin sinifi
+ */
+public class Hawk extends Animal {
+    @Override
+    public int getAge() {
+        return 50;
+    }
+           
+    @Override
+    public int getHeight() {
+        return 100;
+    }
+           
+    @Override
+    public int getWeight() {
+        return 5;
+    }
+}
+
+/**
+ * Test sinifi
+ */
+public class TestFactoryMethod {
+    public static void main(String[] args) {
+        AnimalStore mammalStore=new MammalStore();
+        mammalStore.printProperties("cow");
+        AnimalStore birdStore=new BirdStore();
+        birdStore.printProperties("eagle");
+    }
+}
+
+
+/**
+ * Dependency Inversion Principle
+
+Örnekte görüldüğü gibi süper sınıf olan AnimalStore sınıfı, abstract olarak tanımlanmış Animal sınıfına bağlıdır. 
+Cow, Hourse, Eagle ve Hawk sınıfları da Animal sınıfına bağlıdır. 
+Yani üst seviye(high level) component ile alt seviye(low level) component arasında abstract tanımlanmış bir sınıf vardır. 
+Yukarıdaki örnekte high level component AnimalStore sınıfı, low level component ise Cow, Hourse, Eagle ve Hawk sınıflarıdır.
+ Eğer böyle bir tanımlama olmasaydı, AnimalStore sınıfı Cow, Hourse, Eagle ve Hawk sınıflarına bağımlı olacaktı. 
+Bu sınıflardan herhangi biri değiştiği zaman AnimalStore sınıfı da bu değişimden etkilenecekti. 
+High level ile low level arasında bir abstraction olmasından dolayı, low level deki değişimden high level etkilenmeyecektir.
+ İşte bu prensibe, dependency inversion principle denilmektedir.
+
+ */
