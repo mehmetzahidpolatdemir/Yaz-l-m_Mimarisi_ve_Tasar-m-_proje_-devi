@@ -1,4 +1,4 @@
-# Yazilim Mimarisi ve Tasarimi Proje Ödevi
+# Yazılım Mimarisi ve Tasarımı Proje Ödevi
 Merhabalar Bu benim Yazılım-Mimarisi-ve-Tasarımı Proje ödevim bu ödevimde -> Tasarım Desenleri; • Yaratılış (Yaratımsal), • Yapısal (Yapısal), • Davranışsal (Davranışsal) olmak üzere 3 konuya ayrılıyor benden istenen 2 konu ile ilgili örnek vermek bu projemde boyutunda anlatacağım.
 
 ## Yazılım Mimarisi ve Tasarımı
